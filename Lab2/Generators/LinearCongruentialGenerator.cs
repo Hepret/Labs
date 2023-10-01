@@ -1,9 +1,11 @@
-﻿namespace Lab2;
+﻿using Lab2.Generators;
+
+namespace Lab2;
 
 /// <summary>
 /// Класс, реализующий линейный конгруэнтный генератор псевдослучайных чисел
 /// </summary>
-public class LinearCongruentialGenerator
+public class LinearCongruentialGenerator : IRandomGenerator
 { 
     
     #region Константы для линейного конгруэнтного генератора
@@ -48,10 +50,7 @@ public class LinearCongruentialGenerator
         this._seed = seed;
     }
 
-    /// <summary>
-    /// Генерирует следующее псевдослучайное число.
-    /// </summary>
-    /// <returns>Следующее псевдослучайное число</returns>
+    /// <inheritdoc/>
     public int Next()
     {
         _seed = (A * _seed + C) % M;
