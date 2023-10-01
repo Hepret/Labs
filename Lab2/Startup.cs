@@ -16,7 +16,7 @@ public class Startup
         services.AddSingleton(Configuration);
         services.AddSingleton<PRNGImageGeneratorService>();
     }
-    
+
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;

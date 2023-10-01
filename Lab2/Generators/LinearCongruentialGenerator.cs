@@ -6,31 +6,30 @@ namespace Lab2;
 /// Класс, реализующий линейный конгруэнтный генератор псевдослучайных чисел
 /// </summary>
 public class LinearCongruentialGenerator : IRandomGenerator
-{ 
-    
+{
     #region Константы для линейного конгруэнтного генератора
-    
+
     /// <summary>
     /// Множитель
     /// </summary>
-    private const int A = 2147483629; 
-    
+    private const int A = 2147483629;
+
     /// <summary>
     /// Приращение
     /// </summary>
-    private const int C = 2147483587; 
-    
+    private const int C = 2147483587;
+
     /// <summary>
     /// Модуль
     /// </summary>
-    private const int M = int.MaxValue; 
+    private const int M = int.MaxValue;
 
     #endregion
-    
+
     /// <summary>
     /// текущее значение генератора
     /// </summary>
-    private int _seed; 
+    private int _seed;
 
     /// <summary>
     /// Создает новый генератор псевдослучайных чисел со случайным начальным значением.
@@ -47,7 +46,7 @@ public class LinearCongruentialGenerator : IRandomGenerator
     /// <param name="seed">Начальное значение для генерации</param>
     public LinearCongruentialGenerator(int seed)
     {
-        this._seed = seed;
+        _seed = seed;
     }
 
     /// <inheritdoc/>

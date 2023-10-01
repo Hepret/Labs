@@ -13,11 +13,13 @@ public static class ServiceCollectionExtensions
     /// <summary>
     /// Использует класс-конфигуратор
     /// </summary>
-    public static IServiceCollection UseStartup<TStartup>(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection UseStartup<TStartup>(this IServiceCollection services,
+        IConfiguration configuration)
         where TStartup : class
     {
         var startupType = typeof(TStartup);
-        var cfgServicesMethod = startupType.GetMethod(ConfigureServicesMethodName, new Type[] { typeof(IServiceCollection) });
+        var cfgServicesMethod =
+            startupType.GetMethod(ConfigureServicesMethodName, new Type[] { typeof(IServiceCollection) });
         var hasConfigCtor = startupType.GetConstructor(new Type[] { typeof(IConfiguration) }) != null;
         var startup = hasConfigCtor
             ? (TStartup)Activator.CreateInstance(typeof(TStartup), configuration)!

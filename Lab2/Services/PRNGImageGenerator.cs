@@ -56,20 +56,11 @@ public class PRNGImageGeneratorService
 
         ImagesPath = resourcesPath + imagesPath;
         var imageDir = new DirectoryInfo(ImagesPath);
-        if (!imageDir.Exists)
-        {
-            imageDir.Create();
-        }
+        if (!imageDir.Exists) imageDir.Create();
 
-        if (!int.TryParse(configuration.GetSection("seed").Value, out Seed))
-        {
-            Seed = DefaultSeed;
-        }
+        if (!int.TryParse(configuration.GetSection("seed").Value, out Seed)) Seed = DefaultSeed;
 
-        if (!int.TryParse(configuration.GetSection("imageSize").Value, out _size))
-        {
-            _size = DefaultSize;
-        }
+        if (!int.TryParse(configuration.GetSection("imageSize").Value, out _size)) _size = DefaultSize;
     }
 
     /// <summary>
@@ -89,7 +80,7 @@ public class PRNGImageGeneratorService
     {
         return Color.FromArgb(i);
     }
-    
+
     /// <summary>
     /// Генерирует картинки для всех генераторов по конкретному сиду
     /// </summary>
@@ -99,20 +90,18 @@ public class PRNGImageGeneratorService
         {
             var constructor = _generators[generatorType].ConstructorWithSeed;
             var parameters = new object[] { Seed };
-            var generator = (IRandomGenerator)(constructor.Invoke(parameters));
-            
+            var generator = (IRandomGenerator)constructor.Invoke(parameters);
+
             using var image = new Bitmap(_size, _size);
             using var graphics = Graphics.FromImage(image);
             var pen = new Pen(Color.Aqua);
 
             for (var i = 0; i < _size; i++)
+            for (var j = 0; j < _size; j++)
             {
-                for (var j = 0; j < _size; j++)
-                {
-                    var num = generator.Next();
-                    pen.Color = GetColor(num);
-                    graphics.DrawEllipse(pen, i, j, 1, 1);
-                }
+                var num = generator.Next();
+                pen.Color = GetColor(num);
+                graphics.DrawEllipse(pen, i, j, 1, 1);
             }
 
             var path = ImagesPath + generatorType.Name;
@@ -132,24 +121,22 @@ public class PRNGImageGeneratorService
         foreach (var generatorType in _generators.Keys)
         {
             var constructor = _generators[generatorType].ConstructorWithSeed;
-            
+
             using var image = new Bitmap(_size, _size);
             using var graphics = Graphics.FromImage(image);
             var pen = new Pen(Color.Aqua);
 
             var seed = 0;
-            
+
             for (var i = 0; i < _size; i++)
+            for (var j = 0; j < _size; j++)
             {
-                for (var j = 0; j < _size; j++)
-                {
-                    var parameters = new object[] { seed };
-                    var generator = (IRandomGenerator)(constructor.Invoke(parameters));
-                    var num = generator.Next();
-                    pen.Color = GetColor(num);
-                    graphics.DrawEllipse(pen, i, j, 1, 1);
-                    seed++;
-                }
+                var parameters = new object[] { seed };
+                var generator = (IRandomGenerator)constructor.Invoke(parameters);
+                var num = generator.Next();
+                pen.Color = GetColor(num);
+                graphics.DrawEllipse(pen, i, j, 1, 1);
+                seed++;
             }
 
             var path = ImagesPath + generatorType.Name;
@@ -179,13 +166,13 @@ public class PRNGImageGeneratorService
         var generatorType = typeof(T);
 
         var constructorWithSeed = generatorType
-            .GetConstructors()
-            .FirstOrDefault(ctor => 
-                ctor.GetParameters().Length == 1
-                && ctor.GetParameters()[0].ParameterType == typeof(int))
-            ?? throw new ArgumentException("Неправильный формат конструктора");
+                                      .GetConstructors()
+                                      .FirstOrDefault(ctor =>
+                                          ctor.GetParameters().Length == 1
+                                          && ctor.GetParameters()[0].ParameterType == typeof(int))
+                                  ?? throw new ArgumentException("Неправильный формат конструктора");
         var defaultConstructor = generatorType.GetConstructor(Type.EmptyTypes)
-            ?? throw new ArgumentException("Неправильный формат конструктора");
+                                 ?? throw new ArgumentException("Неправильный формат конструктора");
 
         var constructors = new ConstructorWithSeedAndDefaultConstructor(constructorWithSeed, defaultConstructor);
 
@@ -198,4 +185,5 @@ public class PRNGImageGeneratorService
 /// </summary>
 /// <param name="ConstructorWithSeed">Конструктор с сидом</param>
 /// <param name="DefaultConstructor">Конструктор без параметров</param>
-public record ConstructorWithSeedAndDefaultConstructor(ConstructorInfo ConstructorWithSeed, ConstructorInfo DefaultConstructor);
+public record ConstructorWithSeedAndDefaultConstructor(ConstructorInfo ConstructorWithSeed,
+    ConstructorInfo DefaultConstructor);

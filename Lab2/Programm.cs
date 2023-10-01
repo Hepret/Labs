@@ -12,12 +12,12 @@ public static class Program
     /// Сервисы
     /// </summary>
     private static readonly ServiceProvider Services;
-    
+
     /// <summary>
     /// Конфигурация
     /// </summary>
     private static readonly IConfiguration Configuration;
-    
+
     /// <summary>
     /// Точка входа в программу
     /// </summary>

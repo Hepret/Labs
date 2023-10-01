@@ -7,7 +7,7 @@ public static class ConfigurationExtension
 {
     public static IConfigurationBuilder CreateConfigurationBuilder(this IConfigurationBuilder configurationBuilder)
     {
-        var resourcePath = (new DirectoryInfo(Environment.CurrentDirectory))!
+        var resourcePath = new DirectoryInfo(Environment.CurrentDirectory)!
             .Parent!
             .Parent!
             .Parent!
