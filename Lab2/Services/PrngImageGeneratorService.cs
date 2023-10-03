@@ -1,49 +1,51 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.Reflection;
 using Lab2.Generators;
 using Microsoft.Extensions.Configuration;
 
 namespace Lab2.Services;
 
 /// <summary>
-/// Сервис для генерации картинок для генератора случайных чисел
+///     Сервис для генерации картинок для генератора случайных чисел
 /// </summary>
-public class PRNGImageGeneratorService
+public class PrngImageGeneratorService
 {
-    private readonly Dictionary<Type, ConstructorWithSeedAndDefaultConstructor> _generators;
-
     /// <summary>
-    /// Стандартный путь к изображениям
+    ///     Стандартный путь к изображениям
     /// </summary>
     private const string DefaultPath = "\\images\\";
 
     /// <summary>
-    /// Стандартный размер изображения
+    ///     Стандартный размер изображения
     /// </summary>
     private const int DefaultSize = 512;
 
     /// <summary>
-    /// Стандартный seed
+    ///     Стандартный seed
     /// </summary>
     private const int DefaultSeed = 0;
 
     /// <summary>
-    /// Seed
+    ///     Генераторы
     /// </summary>
-    public readonly int Seed;
+    private readonly Dictionary<Type, ConstructorWithSeedAndDefaultConstructor> _generators;
 
     /// <summary>
-    /// Размер картинки в px
+    ///     Размер картинки в px
     /// </summary>
     private readonly int _size;
 
     /// <summary>
-    /// Путь к папке, где надо сохранять картинки
+    ///     Путь к папке, где надо сохранять картинки
     /// </summary>
     public readonly string ImagesPath;
 
-    public PRNGImageGeneratorService(IConfiguration configuration)
+    /// <summary>
+    ///     Seed
+    /// </summary>
+    public readonly int Seed;
+
+    public PrngImageGeneratorService(IConfiguration configuration)
     {
         _generators = new Dictionary<Type, ConstructorWithSeedAndDefaultConstructor>();
         var defaultResourcesPath = new DirectoryInfo(Environment.CurrentDirectory)!.Parent!.Parent!.Parent!;
@@ -64,7 +66,7 @@ public class PRNGImageGeneratorService
     }
 
     /// <summary>
-    ///  Получает i-ый бит числа
+    ///     Получает i-ый бит числа
     /// </summary>
     private static uint GetBytePart(int num, int byteIndex)
     {
@@ -74,7 +76,7 @@ public class PRNGImageGeneratorService
     }
 
     /// <summary>
-    /// Получает цвет из числа
+    ///     Получает цвет из числа
     /// </summary>
     private static Color GetColor(int i)
     {
@@ -82,7 +84,7 @@ public class PRNGImageGeneratorService
     }
 
     /// <summary>
-    /// Генерирует картинки для всех генераторов по конкретному сиду
+    ///     Генерирует картинки для всех генераторов по конкретному сиду
     /// </summary>
     public void CreateImageOnOneSeed()
     {
@@ -114,7 +116,7 @@ public class PRNGImageGeneratorService
     }
 
     /// <summary>
-    /// Генерирует картинку по разным сидам
+    ///     Генерирует картинку по разным сидам
     /// </summary>
     public void CreateImageDifferentSeeds()
     {
@@ -149,7 +151,7 @@ public class PRNGImageGeneratorService
     }
 
     /// <summary>
-    /// Генерирует картинки по всем тестам
+    ///     Генерирует картинки по всем тестам
     /// </summary>
     public void CreateImages()
     {
@@ -158,7 +160,7 @@ public class PRNGImageGeneratorService
     }
 
     /// <summary>
-    /// Добавляет генератор
+    ///     Добавляет генератор
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public void AddGenerator<T>() where T : IRandomGenerator
@@ -179,11 +181,3 @@ public class PRNGImageGeneratorService
         _generators[generatorType] = constructors;
     }
 }
-
-/// <summary>
-/// Конструктор с сидом, конструктор без параметров
-/// </summary>
-/// <param name="ConstructorWithSeed">Конструктор с сидом</param>
-/// <param name="DefaultConstructor">Конструктор без параметров</param>
-public record ConstructorWithSeedAndDefaultConstructor(ConstructorInfo ConstructorWithSeed,
-    ConstructorInfo DefaultConstructor);

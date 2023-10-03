@@ -1,12 +1,12 @@
 ﻿namespace Lab2.Generators;
 
 /// <summary>
-/// Обертка для стандартного генератора
+///     Обертка для стандартного генератора
 /// </summary>
 public class DefaultGenerator : IRandomGenerator
 {
     /// <summary>
-    /// Рандом
+    ///     Рандом
     /// </summary>
     private readonly Random _random;
 
@@ -20,9 +20,15 @@ public class DefaultGenerator : IRandomGenerator
         _random = new Random();
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public int Next()
     {
         return _random.Next(int.MinValue, int.MaxValue);
+    }
+
+    /// <inheritdoc />
+    public double NextDouble()
+    {
+        return _random.NextDouble();
     }
 }

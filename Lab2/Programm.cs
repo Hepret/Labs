@@ -9,27 +9,14 @@ namespace Lab2;
 public static class Program
 {
     /// <summary>
-    /// Сервисы
+    ///     Сервисы
     /// </summary>
     private static readonly ServiceProvider Services;
 
     /// <summary>
-    /// Конфигурация
+    ///     Конфигурация
     /// </summary>
     private static readonly IConfiguration Configuration;
-
-    /// <summary>
-    /// Точка входа в программу
-    /// </summary>
-    /// <param name="args"></param>
-    public static void Main(string[] args)
-    {
-        var imageGenerator = Services.GetRequiredService<PRNGImageGeneratorService>();
-        imageGenerator.AddGenerator<DefaultGenerator>();
-        imageGenerator.AddGenerator<LinearCongruentialGenerator>();
-        imageGenerator.CreateImages();
-        Console.WriteLine("Success");
-    }
 
     static Program()
     {
@@ -41,5 +28,24 @@ public static class Program
             .BuildServiceProvider();
         Services = serviceProvider;
         Configuration = config;
+    }
+
+    /// <summary>
+    ///     Точка входа в программу
+    /// </summary>
+    /// <param name="args"></param>
+    public static void Main(string[] args)
+    {
+        var imageGenerator = Services.GetRequiredService<PrngImageGeneratorService>();
+        imageGenerator.AddGenerator<DefaultGenerator>();
+        imageGenerator.AddGenerator<LinearCongruentialGenerator>();
+        imageGenerator.CreateImages();
+
+        var statisticTest = Services.GetRequiredService<PrngStatisticTest>();
+        statisticTest.AddGenerator<DefaultGenerator>();
+        statisticTest.AddGenerator<LinearCongruentialGenerator>();
+        statisticTest.Run();
+        
+        Console.WriteLine("Success");
     }
 }
