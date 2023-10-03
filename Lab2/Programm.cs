@@ -45,7 +45,7 @@ public static class Program
         statisticTest.AddGenerator<DefaultGenerator>();
         statisticTest.AddGenerator<LinearCongruentialGenerator>();
         statisticTest.Run();
-        
+
         Console.WriteLine("Success");
     }
 }

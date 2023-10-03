@@ -37,7 +37,7 @@ public class LinearCongruentialGenerator : IRandomGenerator
         return _seed;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public double NextDouble()
     {
         double num = Next();

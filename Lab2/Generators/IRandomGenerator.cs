@@ -11,7 +11,7 @@ public interface IRandomGenerator
     int Next();
 
     /// <summary>
-    /// Генерирует случайное число из интервала от 0 до 1
+    ///     Генерирует случайное число из интервала от 0 до 1
     /// </summary>
     /// <returns></returns>
     double NextDouble();

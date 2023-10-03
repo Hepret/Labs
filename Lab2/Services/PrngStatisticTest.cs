@@ -119,7 +119,7 @@ public class PrngStatisticTest
         var chiSquared = 0.0;
         var expectedFrequency = (double)data.Length / numBins;
         for (var i = 0; i < numBins; i++)
-            chiSquared += Math.Pow((histogram[i] - expectedFrequency), 2) / expectedFrequency;
+            chiSquared += Math.Pow(histogram[i] - expectedFrequency, 2) / expectedFrequency;
 
         var degreesOfFreedom = numBins - 1;
 
