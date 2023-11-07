@@ -200,6 +200,3 @@ cython_debug/
 *.doc
 *.docx
 *.xsls
-
-*images
-Lab2/testResults
