@@ -6,13 +6,13 @@
 С помощью графического языка IDEF0
 
 ## TOP
-![TOP(https://github.com/Hepret/Labs/blob/lab3/images/TOP.png?raw=true)]
+![TOP](https://github.com/Hepret/Labs/blob/lab3/images/TOP.png?raw=true)
 
 ## A0 
-![A0(https://github.com/Hepret/Labs/blob/lab3/images/a0.png?raw=true)]
+![A0](https://github.com/Hepret/Labs/blob/lab3/images/a0.png?raw=true)
 
 ## A1
-![A1(https://github.com/Hepret/Labs/blob/lab3/images/a1.png?raw=true)]
+![A1](https://github.com/Hepret/Labs/blob/lab3/images/a1.png?raw=true)
 ## A4
-![A4(https://github.com/Hepret/Labs/blob/lab3/images/a4.png?raw=true)]
+![A4](https://github.com/Hepret/Labs/blob/lab3/images/a4.png?raw=true)
 
